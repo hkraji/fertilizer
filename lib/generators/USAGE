@@ -1,0 +1,10 @@
+Fertilizier
+=============
+
+# Generate MVC 
+
+  rails generate fertilizer OPTION
+
+  OPTION values:
+
+    ALL - generates all helpers (entered bellow) [DEFAULT]
