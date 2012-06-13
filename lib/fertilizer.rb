@@ -7,22 +7,18 @@ module Fertilizer
   # Details about features can be seen in console_extensions module.
 
   if defined?(Rails::Console)
-      require 'fertilizer/console_extensions'
-      include ConsoleExtensions
-
-      # include all modules from lib/poc folder
-      Dir.chdir('lib') do
-          Dir["poc/*.rb"].each do |file| 
-              require file
-              eval "include  #{File.basename(file).gsub(/\.rb/,'').camelize}"
-          end
-      end
+    require 'fertilizer/console_extensions'
+    include ConsoleExtensions
   end
 
+
+ 
   # <-- OBJECT EXTENSIONS (CONSOLE ONLY)-->
   if defined?(Rails::Console)
     require 'fertilizer/object_extensions'
-    include ObjectExtensions
   end
+
+  # add it to the scope
+  Object.send(:include,self)
 
 end
