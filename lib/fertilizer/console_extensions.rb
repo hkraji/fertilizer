@@ -5,6 +5,7 @@
 # * code        - displays source code for method with given instance/class
 
 module ConsoleExtensions
+
   # Reload lib configuration from console
   def reload_lib
     path = File.join( Rails.root, 'lib') 
@@ -44,7 +45,11 @@ module ConsoleExtensions
   end
 
   def cls
-    system('cls')
+    is_windows?
+      system('cls')
+    is_mac? || is_linux?
+      system('clear')
+    return nil
   end
 
   # Takes instance/class, method and displays source code and comments
@@ -57,4 +62,27 @@ module ConsoleExtensions
     clazz.instance_method(method).source.display
   end
 
+  # Prints SQL log on console
+  def log_sql
+    if ActiveRecord::Base.logger = Logger.new(STDOUT)
+      return 'Console will output SQL logs'
+    else
+      return 'Something went wrong!!!'
+    end
+  end
+
+  private
+
+  # methods to determine on what OS are user
+  def is_mac?
+    RUBY_PLATFORM.downcase.include?("darwin")
+  end
+
+  def is_windows?
+    RUBY_PLATFORM.downcase.include?("mswin")
+  end
+
+  def is_linux?
+    RUBY_PLATFORM.downcase.include?("linux")
+  end
 end

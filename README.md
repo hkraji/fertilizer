@@ -1,6 +1,7 @@
 # Fertilizer
 
 TODO: Write a gem description
+DESCRIPTION
 
 ## Installation
 
